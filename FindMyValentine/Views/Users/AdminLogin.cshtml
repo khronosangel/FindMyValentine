@@ -1,0 +1,24 @@
+﻿<form>
+    <div class="card card-hidden">
+        <div class="header text-center">Login</div>
+        @if (!string.IsNullOrWhiteSpace(Context.Request.Query["StatusMessage"].ToString()))
+        {
+            <div class="alert-@(Context.Request.Query["Success"].ToString() == "True" ? "success":"danger") alert">
+                <p>@Context.Request.Query["StatusMessage"].ToString()</p>
+            </div>
+        }
+        <div class="content">
+            <div class="form-group">
+                <label>Student No</label>
+                <input type="text" name="Username" placeholder="Enter student number" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="Password" placeholder="Enter password" class="form-control">
+            </div>
+        </div>
+        <div class="footer text-center">
+            <button type="submit" class="btn btn-fill btn-warning btn-wd" style="width:100%"><i class="fa fa-sign-in-alt"></i> Login</button>
+        </div>
+    </div>
+</form>
