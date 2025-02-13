@@ -14,6 +14,7 @@
         public int StudentId { get; set; }
         public string StudentName { get; set; }
         public string StudentNumber { get; set; }
+        public string Hint { get; set; }
         public string Gender { get; set; }
         public string Level { get; set; }
         public string Course { get; set; }

@@ -1,20 +1,30 @@
-﻿<form>
+﻿@model AccountsViewModel
+@{
+    ViewData["Title"] = "Admin Login";
+}
+<form method="post" action="~/Users/AdminLoginProceed">
     <div class="card card-hidden">
-        <div class="header text-center">Login</div>
-        @if (!string.IsNullOrWhiteSpace(Context.Request.Query["StatusMessage"].ToString()))
+        <div class="header text-center">
+            <div style="font-family: 'LovelyValentine'; font-size: 35px; color: rgb(248 23 117 / var(--tw-text-opacity)) !important;">
+                <img src="~/imgs/valentine_icon.svg" style="height: 100px" /><br />
+                Find My Valentine
+            </div>
+            Admin Login
+        </div>
+        @if (!string.IsNullOrWhiteSpace(Model.StatusMessage))
         {
-            <div class="alert-@(Context.Request.Query["Success"].ToString() == "True" ? "success":"danger") alert">
-                <p>@Context.Request.Query["StatusMessage"].ToString()</p>
+            <div class="alert-danger alert">
+                <p>@Model.StatusMessage</p>
             </div>
         }
         <div class="content">
             <div class="form-group">
-                <label>Student No</label>
-                <input type="text" name="Username" placeholder="Enter student number" class="form-control">
+                <label>Username</label>
+                <input type="text" name="Username" placeholder="Enter Username" class="form-control">
             </div>
             <div class="form-group">
                 <label>Password</label>
-                <input type="password" name="Password" placeholder="Enter password" class="form-control">
+                <input type="password" name="Password" placeholder="Enter Password" class="form-control">
             </div>
         </div>
         <div class="footer text-center">

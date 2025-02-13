@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    Account curAcc = (Account)ViewData["Admin"];
+    bool isAdmin = curAcc != null;
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -11,7 +15,13 @@
     <link rel="stylesheet" href="~/FindMyValentine.styles.css" asp-append-version="true" />
     <link href="~/lib/fontawesome-free-5.15.4-web/css/all.min.css" rel="stylesheet" />
     <link href="~/lib/DataTables/datatables.min.css" rel="stylesheet" />
+    <link href="~/lib/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
     <style>
+        @@font-face {
+            font-family: 'LovelyValentine';
+            src: url('/fonts/LovelyValentine.ttf');
+        }
+
         .modal .close {
             background: transparent;
             border: 1px solid #CCC;
@@ -21,7 +31,7 @@
             position: absolute;
             top: 10px;
         }
-        
+
         .card {
             box-shadow: 0 25px 30px -13px rgba(40, 40, 40, 0.4);
             border-radius: 10px;
@@ -37,13 +47,33 @@
             .card .content {
                 padding: 20px;
             }
+
+        .valentine-hint {
+            position: relative;
+            border: 1px solid pink;
+            box-shadow: 0px 0px 8px #CCC;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px;
+        }
+
+            .valentine-hint img {
+                height: 20px;
+            }
+
+            .valentine-hint .valentine-hint-message {
+                font-family: cursive;
+                font-size: 25px;
+                text-align: center;
+                margin-top: 20px;
+            }
     </style>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="font-family: 'LovelyValentine'; font-size: 35px; ">
                     <img src="~/imgs/valentine_icon.svg" style="height:50px" />
                     Find My Valentine
                 </a>
@@ -59,18 +89,31 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About"><i class="fa fa-info-circle"></i> About</a>
                         </li>
-                        <li class="nav-item">
+
+                        @if (isAdmin)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Matches" asp-action="Index"><i class="fa fa-heart"></i> Matches</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Index"><i class="fa fa-users"></i> Users</a>
+                            </li>
+
+                        }
+
+                        <li class="nav-item" style="display:none">
                             <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Login"><i class="fa fa-sign"></i> Login</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Matches" asp-action="Index"><i class="fa fa-magnet"></i> Matches</a>
-                        </li>
-                        <li class="nav-item">
+                        <li class="nav-item" style="display:none">
                             <a class="nav-link" asp-area="" asp-controller="Users" asp-action="AdminLogin"><i class="fa fa-sign-in-alt"></i> ALogin</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Index"><i class="fa fa-users"></i> Users</a>
-                        </li>
+
+                        @if (ViewData["Admin"] != null || ViewData["User"] != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Logout"><i class="fa fa-sign-out-alt"></i> Logout</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -93,7 +136,7 @@
     <script src="~/lib/DataTables/datatables.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/js/datatable.ext.js"></script>
+    <script src="~/lib/sweetalert2/sweetalert2.all.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

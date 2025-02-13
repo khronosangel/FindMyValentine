@@ -15,13 +15,17 @@ public partial class MainDBContext : DbContext
 
     public virtual DbSet<Account> Accounts { get; set; }
 
+    public virtual DbSet<Match> Matches { get; set; }
+
+    public virtual DbSet<MatchControl> MatchControls { get; set; }
+
     public virtual DbSet<Student> Students { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Account>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Account__3214EC075CE712DB");
+            entity.HasKey(e => e.Id).HasName("PK__Account__3214EC077485AC19");
 
             entity.ToTable("Account");
 
@@ -29,9 +33,49 @@ public partial class MainDBContext : DbContext
             entity.Property(e => e.Username).IsRequired();
         });
 
+        modelBuilder.Entity<Match>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Match__3214EC07DA3ADC8D");
+
+            entity.ToTable("Match");
+
+            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.FemaleHint)
+                .IsRequired()
+                .IsUnicode(false);
+            entity.Property(e => e.Level)
+                .IsRequired()
+                .HasMaxLength(255);
+            entity.Property(e => e.MaleHint)
+                .IsRequired()
+                .IsUnicode(false);
+            entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
+            entity.Property(e => e.StudentNumberFemale)
+                .IsRequired()
+                .IsUnicode(false);
+            entity.Property(e => e.StudentNumberMale)
+                .IsRequired()
+                .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<MatchControl>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__MatchCon__3214EC07FE47C810");
+
+            entity.ToTable("MatchControl");
+
+            entity.Property(e => e.EndtDateTime)
+                .IsRequired()
+                .HasMaxLength(255);
+            entity.Property(e => e.Level).IsUnicode(false);
+            entity.Property(e => e.StartDateTime)
+                .IsRequired()
+                .HasMaxLength(255);
+        });
+
         modelBuilder.Entity<Student>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Student__3214EC07F4507748");
+            entity.HasKey(e => e.Id).HasName("PK__Student__3214EC07FBC4EE86");
 
             entity.ToTable("Student");
 
@@ -44,6 +88,7 @@ public partial class MainDBContext : DbContext
                 .IsRequired()
                 .HasMaxLength(255)
                 .IsUnicode(false);
+            entity.Property(e => e.Hint).IsUnicode(false);
             entity.Property(e => e.Level)
                 .IsRequired()
                 .HasMaxLength(255);

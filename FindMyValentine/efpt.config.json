@@ -19,6 +19,14 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[Match]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[MatchControl]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[Student]",
          "ObjectType": 0
       }

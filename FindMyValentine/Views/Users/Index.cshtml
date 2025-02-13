@@ -37,7 +37,7 @@
                             <label class="control-label">Password <star>*</star></label>
                             <input class="form-control"
                                    name="Password"
-                                   id="registerPassword"
+                                   id="registerPassword1"
                                    type="password"
                                    required />
                         </div>
@@ -46,7 +46,7 @@
                             <label class="control-label">Confirm Password <star>*</star></label>
                             <input class="form-control"
                                    name="password_confirmation"
-                                   id="registerPasswordConfirmation"
+                                   id="registerPasswordConfirmation1"
                                    type="password"
                                    required
                                    equalTo="#registerPassword" />
@@ -101,7 +101,7 @@
                                 <label class="control-label">Password <star>*</star></label>
                                 <input class="form-control"
                                        name="Password"
-                                       id="registerPassword"
+                                       id="registerPassword2"
                                        type="password" />
                             </div>
 
@@ -109,12 +109,12 @@
                                 <label class="control-label">Confirm Password <star>*</star></label>
                                 <input class="form-control"
                                        name="password_confirmation"
-                                       id="registerPasswordConfirmation"
+                                       id="registerPasswordConfirmation2"
                                        type="password"
                                        equalTo="#registerPassword" />
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <label class="control-label">Display Name</label>
                             <input class="form-control"
@@ -143,7 +143,15 @@
                                    required
                                    autocomplete="off" />
                         </div>
-
+                        <div class="form-group">
+                            <label class="control-label">Hint</label>
+                            <textarea title="Hint" rows="3" class="form-control"
+                                   id="Hint"
+                                   name="Hint"
+                                   type="text"
+                                   autocomplete="off" >
+                            </textarea>
+                        </div>
                         <div class="form-group">
                             <label class="control-label">Gender</label>
                             <div class="form-group">
@@ -170,11 +178,11 @@
                         <div class="form-group">
                             <label class="control-label">Year Level</label>
                             @*<input class="form-control"
-                                   id="Year"
-                                   name="Year"
-                                   type="text"
-                                   required
-                                   autocomplete="off" />*@
+            id="Year"
+            name="Year"
+            type="text"
+            required
+            autocomplete="off" />*@
                             <select id="Year" name="Year" class="form-control" required>
                                 <option>1st Year</option>
                                 <option>2nd Year</option>

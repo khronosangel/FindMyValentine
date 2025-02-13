@@ -26,4 +26,6 @@ public partial class Student
     public DateTime? ModifiedDate { get; set; }
 
     public string Level { get; set; }
+
+    public string Hint { get; set; }
 }

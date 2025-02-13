@@ -1,8 +1,73 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model HomeViewModel
+@{
+    ViewData["Title"] = "Home";
+}
+<h4>Hello @Model.CurrentAccount.DisplayName</h4>
+<button type="button" class="btn btn-primary btn-fill"
+        style=" font-size: 20px; float: right; padding: 5px 40px; margin-top: -30px; margin-right: 10px; "
+        onclick="$('#filCam').trigger('click')">
+    <i class="fa fa-camera"></i>
+</button>
+<input id="filCam" type="file" accept="image/*" capture="camera" style="display:none" />
+Your Valentine's <b>Hint</b>
+@if (Model.PartnersDetail != null)
+{
+    <input type="hidden" id="midMM" value="@Model.PartnersDetail.StudentNumber" />
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="valentine-hint">
+    <img src="~/imgs/quote_left_icon.svg" alt="'" style=" position: absolute; top: 10px; left: 20px; " />
+    <div class="valentine-hint-message">
+        @(@Model.PartnersHint ?? "(Sample Hint ONLY) I Wear a Red Shirt")
+    </div>
+    <img src="~/imgs/quote_right_icon.svg" alt="'" style=" position: absolute; top: 10px; right: 20px; " />
 </div>
+
+Your Valentine ID
+<div style=" text-align: center; ">
+    <a href="data:image/png;base64, @Model.QRCodeData" download>
+        <img alt="My QR Code" src="data:image/png;base64, @Model.QRCodeData" style="width: 90%; border: 1px solid #CCC; margin: 10px; padding: 0px;" />
+    </a>
+</div>
+
+Give your Valentine a <b>Hint</b>
+<p style="color:black">*Note: You can provide a hint to our coordinators like your possible location, marker and other indicators, and they will update the message</p>
+<div class="valentine-hint">
+    <img src="~/imgs/quote_left_icon.svg" alt="'" style=" position: absolute; top: 10px; left: 20px; " />
+    <textarea title="message" class="valentine-hint-message" disabled rows="10" style="width: 100%;">
+        @(@Model.YourHint ?? "(Sample Hint ONLY) I Wear a Red Shirt")
+    </textarea>
+    <img src="~/imgs/quote_right_icon.svg" alt="'" style=" position: absolute; top: 10px; right: 20px; " />
+</div>
+
+@section Scripts{
+    
+    @if (Model.MatchMeWith != null)
+    {
+<script>
+    var myPartNo = '@Model.PartnersDetail.StudentNumber';
+    var incomingNo = '@Model.MatchMeWith';
+
+    $(function () {
+
+        if (myPartNo == incomingNo) {
+            Swal.fire({
+                title: "Congrats, You have found your Valentine!",
+                text: "Please proceed together with your Valentine, and claim your Prize!, Thank you for Playing",
+                icon: "success"
+            });
+        }
+        else {
+            Swal.fire({
+                title: "Sorry, this person is not your Valentine!",
+                text: "Please look for another indiviudal and scan again",
+                icon: "warning"
+            });
+        }
+
+    });
+
+</script>
+    }
+
+}

@@ -1,0 +1,13 @@
+﻿@model HomeViewModel
+@{
+    ViewData["Title"] = "Home";
+}
+<h4>Hello @Model.CurrentAccount.DisplayName</h4>
+
+<div class="valentine-hint">
+    <img src="~/imgs/quote_left_icon.svg" alt="'" style=" position: absolute; top: 10px; left: 20px; " />
+    <div class="valentine-hint-message">
+        Matching Making has not yet started!
+    </div>
+    <img src="~/imgs/quote_right_icon.svg" alt="'" style=" position: absolute; top: 10px; right: 20px; " />
+</div>

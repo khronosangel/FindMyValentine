@@ -1,253 +1,112 @@
-﻿@model AccountsViewModel
+﻿@model MatchViewModel
 @{
     ViewData["Title"] = "Matches";
 }
-
 <div style="text-align:right">
-    <button id="btnNew" class="btn btn-primary btn-fill btn-lg" type="button" onclick="$('#newAccModal').modal('toggle')">
-        <i class="fa fa-plus"></i> New Account
-    </button>
+    <form method="get" action="~/Matches/Process">
+        <button id="btnStart" class="btn btn-warning btn-fill" type="submit" value="STARTCOL" name="MatchAction">
+            <i class="fa fa-hourglass-start"></i> Start College Matching
+        </button>
+        <button id="btnEnd" class="btn btn-danger btn-fill" type="submit" value="ENDCOL" name="MatchAction">
+            <i class="fa fa-hourglass-end"></i> End College Matching
+        </button>
+        <button id="btnStart2" class="btn btn-warning btn-fill" type="submit" value="STARTSEN" name="MatchAction">
+            <i class="fa fa-hourglass-start"></i> Start SeniorHigh Matching
+        </button>
+        <button id="btnEnd2" class="btn btn-danger btn-fill" type="submit" value="ENDSEN" name="MatchAction">
+            <i class="fa fa-hourglass-end"></i> End SeniorHigh Matching
+        </button>
+        <button id="btnPop" class="btn btn-primary btn-fill" type="submit" value="POPCOL" name="MatchAction">
+            <i class="fa fa-plus"></i> Populate College Matches
+        </button>
+        <button id="btnPop2" class="btn btn-primary btn-fill" type="submit" value="POPSEN" name="MatchAction">
+            <i class="fa fa-plus"></i> Populate SeniorHigh Matches
+        </button>
+        <button id="btnClear" class="btn btn-danger btn-fill" type="submit" value="CLEARCOL" name="MatchAction">
+            <i class="fa fa-times"></i> Clear College Matches
+        </button>
+        <button id="btnClear2" class="btn btn-danger btn-fill" type="submit" value="CLEARSEN" name="MatchAction">
+            <i class="fa fa-times"></i> Clear SeniorHigh Matches
+        </button>
+    </form>
 </div>
-
-<!-- Modals -->
-<form action="~/Users/Process" method="post">
-    <div class="modal fade" id="newAccModal" tabindex="-1" role="dialog" aria-labelledby="newAccModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 style="display:inline" class="modal-title" id="newAccModalLabel">New Account Form</h4>
-                    <span class="close" data-dismiss="modal" aria-label="Close" onclick="$('#newAccModal').modal('toggle')"><span aria-hidden="true"><i class="fa fa-times"></i></span></span>
-                </div>
-                <div class="modal-body">
-                    <div class="validation-summary-valid" data-valmsg-summary="true">
-                        <ul><li style="display:none"></li></ul>
-                    </div>
-                    <div class="content">
-
-                        <div class="form-group">
-                            <label class="control-label">Student Number <star>*</star></label>
-                            <input class="form-control"
-                                   name="Username"
-                                   type="text"
-                                   required
-                                   autocomplete="off" />
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label">Password <star>*</star></label>
-                            <input class="form-control"
-                                   name="Password"
-                                   id="registerPassword"
-                                   type="password"
-                                   required />
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label">Confirm Password <star>*</star></label>
-                            <input class="form-control"
-                                   name="password_confirmation"
-                                   id="registerPasswordConfirmation"
-                                   type="password"
-                                   required
-                                   equalTo="#registerPassword" />
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label">Display Name</label>
-                            <input class="form-control"
-                                   name="DisplayName"
-                                   type="text"
-                                   autocomplete="off" />
-                        </div>
-
-                        <div class="category" style="font-size:11px"><star>*</star> Required fields</div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default btn-simple" data-dismiss="modal" onclick="$('#newAccModal').modal('toggle')">Close</button>
-                    <button type="submit" name="FormAction" value="NEW" class="btn btn-success btn-fill"><i class="fa fa-save"></i>Save Record</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-<form action="~/Users/Process" method="post">
-    <div class="modal fade" id="editAccModal" tabindex="-1" role="dialog" aria-labelledby="editAccModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 style="display:inline" class="modal-title" id="editAccModalLabel">Edit Account Info</h4>
-                    <span class="close" data-dismiss="modal" aria-label="Close" onclick="$('#editAccModal').modal('toggle')"><span aria-hidden="true"><i class="fa fa-times"></i></span></span>
-                </div>
-                <div class="modal-body">
-                    <div class="validation-summary-valid" data-valmsg-summary="true">
-                        <ul><li style="display:none"></li></ul>
-                    </div>
-                    <div class="content">
-                        <input name="AccountId" id="AccountId" type="hidden" value="" />
-                        <input name="StudentId" id="StudentId" type="hidden" value="" />
-                        <div class="form-group">
-                            <label class="control-label">Student Number <star>*</star></label>
-                            <input class="form-control"
-                                   id="Username"
-                                   name="Username"
-                                   type="text"
-                                   disabled
-                                   autocomplete="off" />
-                        </div>
-                        <button id="pwdCtrl" type="button" class="btn btn-warning" style="width:100%" onclick="$('#pwdCtrl').fadeOut(); $('#pwdCtrlPane').fadeIn()">Edit Password</button>
-                        <div id="pwdCtrlPane" style="display:none">
-                            <div class="form-group">
-                                <label class="control-label">Password <star>*</star></label>
-                                <input class="form-control"
-                                       name="Password"
-                                       id="registerPassword"
-                                       type="password" />
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label">Confirm Password <star>*</star></label>
-                                <input class="form-control"
-                                       name="password_confirmation"
-                                       id="registerPasswordConfirmation"
-                                       type="password"
-                                       equalTo="#registerPassword" />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label">Display Name</label>
-                            <input class="form-control"
-                                   id="DisplayName"
-                                   name="DisplayName"
-                                   type="text"
-                                   autocomplete="off" />
-                        </div>
-                        <hr />
-
-                        <div class="form-group">
-                            <label class="control-label">Student Number</label>
-                            <input class="form-control"
-                                   id="StudentNumber"
-                                   name="StudentNumber"
-                                   type="text"
-                                   disabled
-                                   autocomplete="off" />
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Student Name</label>
-                            <input class="form-control"
-                                   id="StudentName"
-                                   name="StudentName"
-                                   type="text"
-                                   required
-                                   autocomplete="off" />
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label">Gender</label>
-                            <div class="form-group">
-                                <label for="radMale"><input id="radMale" name="Gender" type="radio" value="Male" /> Male</label>
-                                <label for="radFemale"><input id="radFemale" name="Gender" type="radio" value="Female" /> Female</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Level</label>
-                            <select id="Level" name="Level" class="form-control" required>
-                                <option>College</option>
-                                <option>Senior High</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Course</label>
-                            <input class="form-control"
-                                   id="Course"
-                                   name="Course"
-                                   type="text"
-                                   required
-                                   autocomplete="off" />
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Year Level</label>
-                            @*<input class="form-control"
-                                id="Year"
-                                name="Year"
-                                type="text"
-                                required
-                                autocomplete="off" />*@
-                            <select id="Year" name="Year" class="form-control" required>
-                                <option>1st Year</option>
-                                <option>2nd Year</option>
-                                <option>3rd Year</option>
-                                <option>4th Year</option>
-                                <option>5th Year</option>
-                                <option>Irregular</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Section</label>
-                            <input class="form-control"
-                                   id="Section"
-                                   name="Section"
-                                   type="text"
-                                   required
-                                   autocomplete="off" />
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Created Date</label>
-                            <input id="CreatedDate" class="form-control"
-                                   type="text"
-                                   disabled
-                                   autocomplete="off" />
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Modified Date</label>
-                            <input id="ModifiedDate" class="form-control"
-                                   type="text"
-                                   disabled
-                                   autocomplete="off" />
-                        </div>
-                        <div class="category" style="font-size:11px"><star>*</star> Required fields</div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default btn-simple" data-dismiss="modal" onclick="$('#editAccModal').modal('toggle')">Close</button>
-                    <button type="submit" name="FormAction" value="EDIT" class="btn btn-success btn-fill"><i class="fa fa-save"></i>Update Record</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-
-@if (!string.IsNullOrWhiteSpace(Context.Request.Query["StatusMessage"].ToString()))
+<h4>Settings</h4>
+<div>
+    <label>Total Student Count</label>
+    <input type="text" disabled value="@Model.TotalStudentCount" /><br />
+    <label>Student Male Count</label>
+    <input type="text" disabled value="@Model.StudentMaleCount" /><br />
+    <label>Student Female Count</label>
+    <input type="text" disabled value="@Model.StudentFemaleCount" /><br />
+    <label>College Matching</label>
+    <input type="text" disabled value="@Model.CollegeConfig.IsActive.ToString()" /><br />
+    <label>Senior High Matching</label>
+    <input type="text" disabled value="@Model.SeniorHighConfig.IsActive.ToString()" /><br />
+</div>
+@if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
 {
-    <div class="alert-@(Context.Request.Query["Success"].ToString() == "True" ? "success":"danger") alert">
-        <p>@Context.Request.Query["StatusMessage"].ToString()</p>
+    <div class="alert-success alert">
+        <p>@Model.SuccessMessage</p>
     </div>
 }
+@if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+{
+    <div class="alert-danger alert">
+        <p>@Model.ErrorMessage</p>
+    </div>
+}
+<h3>College</h3>
 <div class="table-container">
     <table id="mainTable" class="dataTable">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Student Number</th>
-                <th>Display Name</th>
-                <th>Action</th>
+                <th>Male Student</th>
+                <th>Female Student</th>
+                <th>Level</th>
+                <th>Matched</th>
             </tr>
         </thead>
         <tbody>
-            @if (Model.Accounts != null)
+            @if (Model.CollegeMatches != null)
             {
-                foreach (var row in Model.Accounts)
+                foreach (var row in Model.CollegeMatches)
                 {
                     <tr>
                         <td>@row.Id</td>
-                        <td>@row.Username</td>
-                        <td>@row.DisplayName</td>
-                        <td>
-                            <a href="javascript:void(0)" onclick="GetAccount(@row.Id)" class="link-warning"><i class="fa fa-edit"></i></a>
-                            <a href="~/Users/Delete?AccountId=@row.Id" class="link-danger"><i class="fa fa-times"></i></a>
-                        </td>
+                        <td>@row.StudentNumberMale</td>
+                        <td>@row.StudentNumberFemale</td>
+                        <td>@row.Level</td>
+                        <td>@row.Matched</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<h3>Senior High</h3>
+<div class="table-container">
+    <table id="mainTable2" class="dataTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Male Student</th>
+                <th>Female Student</th>
+                <th>Level</th>
+                <th>Matched</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.SeniorHighMatches != null)
+            {
+                foreach (var row in Model.SeniorHighMatches)
+                {
+                    <tr>
+                        <td>@row.Id</td>
+                        <td>@row.StudentNumberMale</td>
+                        <td>@row.StudentNumberFemale</td>
+                        <td>@row.Level</td>
+                        <td>@row.Matched</td>
                     </tr>
                 }
             }
@@ -260,26 +119,9 @@
     <script>
         var mainDT = null;
 
-        function GetAccount(accID) {
-            $.ajax({
-                url: '/Users/GetAccount?AccountId=' + accID,
-                method: 'GET',
-                success: function (res) {
-                    console.log('GetAccount > res: ', res);
-                    for (let kk of Object.keys(res)) {
-                        $('#' + kk).val(res[kk]);
-                    }
-                    $('input[name="Gender"]').prop('checked',false);
-                    $('#rad' + res.Gender).prop('checked',true);
-                    $('#editAccModal').modal('toggle');
-                },
-                err: function (err) {},
-
-            });
-        }
-
         $(function () {
             mainDT = new DataTable('#mainTable');
+            var mainDT2 = new DataTable('#mainTable2');
         });
 
     </script>
