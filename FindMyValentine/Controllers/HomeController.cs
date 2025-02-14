@@ -37,9 +37,15 @@ namespace FindMyValentine.Controllers
                                         row.StudentNumberMale == resp.CurrentAccount.Username
                                         select row).FirstOrDefault();
 
-                    
-                    resp.YourHint = resp.CurrentStudent.Hint;
+                    if(resp.MatchDetail== null)
+                    {
+                        return View("NotReady", resp);
+                    }
 
+                    if (resp.CurrentStudent != null)
+                    {
+                        resp.YourHint = resp.CurrentStudent.Hint;
+                    }
 
                     if (resp.MatchDetail != null)
                     {
@@ -73,7 +79,8 @@ namespace FindMyValentine.Controllers
 
 
                     using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
-                    using (QRCodeData qrCodeData = qrGenerator.CreateQrCode($"http://angels7890-001-site1.ktempurl.com/Home/Index?MatchMeWith={resp.CurrentAccount.Username}", QRCodeGenerator.ECCLevel.Q))
+                    //using (QRCodeData qrCodeData = qrGenerator.CreateQrCode($"http://angels7890-001-site1.ktempurl.com/Home/Index?MatchMeWith={resp.CurrentAccount.Username}", QRCodeGenerator.ECCLevel.Q))
+                    using (QRCodeData qrCodeData = qrGenerator.CreateQrCode($"https://findmyvalentine.azurewebsites.net/Home/Index?MatchMeWith={resp.CurrentAccount.Username}", QRCodeGenerator.ECCLevel.Q))
                     using (PngByteQRCode qrCode = new PngByteQRCode(qrCodeData))
                     //using (QRCode qrCode = new QRCode(qrCodeData))
                     {

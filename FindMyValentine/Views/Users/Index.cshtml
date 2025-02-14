@@ -253,8 +253,8 @@
                         <td>@row.Username</td>
                         <td>@row.DisplayName</td>
                         <td>
-                            <a href="javascript:void(0)" onclick="GetAccount(@row.Id)" class="link-warning"><i class="fa fa-edit"></i></a>
-                            <a href="~/Users/Delete?AccountId=@row.Id" class="link-danger"><i class="fa fa-times"></i></a>
+                            <a href="javascript:void(0)" onclick="GetAccount(@row.Id)" class="link-warning"><i class="fa fa-edit"></i> Edit</a>
+                            <a href="~/Users/Delete?AccountId=@row.Id" class="link-danger"><i class="fa fa-times"></i> Remove</a>
                         </td>
                     </tr>
                 }
